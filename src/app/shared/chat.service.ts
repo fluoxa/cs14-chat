@@ -16,9 +16,16 @@ export class ChatService {
     this.socket.emit('add-message', message);
   }
 
-  getMessages() {
+  getMessages(room) {
     let observable = new Observable(observer => {
       this.socket = io(this.url);
+
+      if(room == null) {
+        room = "lobby";
+      }
+
+      this.socket.emit('join-room', room);
+
       this.socket.on('message', (data) => {
         observer.next(data);
       });

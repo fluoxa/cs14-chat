@@ -1,5 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ChatService} from "../shared/chat.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-chat',
@@ -12,7 +13,9 @@ export class ChatComponent implements OnInit, OnDestroy {
   connection;
   message;
 
-  constructor(private chatService: ChatService) {
+  constructor(
+    private chatService: ChatService,
+    private route: ActivatedRoute) {
   }
 
   sendMessage() {
@@ -21,7 +24,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.connection = this.chatService.getMessages().subscribe(message => {
+    const room = this.route.params['room'];
+    this.connection = this.chatService.getMessages(room).subscribe(message => {
       this.messages.push(message);
     })
   }

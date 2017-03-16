@@ -12,12 +12,17 @@ import {RouterModule} from "@angular/router";
 const ROUTES = [
   {
     path: '',
-    redirectTo: 'chat',
+    redirectTo: 'chat/lobby',
     pathMatch: 'full'
   },
   {
-    path: 'chat',
+    path: 'chat/:room',
     component: ChatComponent
+  },
+  {
+    path: 'chat',
+    redirectTo: 'chat/lobby',
+    pathMatch: 'full'
   }
 ];
 
